@@ -174,6 +174,7 @@ void call(Map parameters = [:], body) {
         ], config)
         echo "[TRACE][${STEP_NAME}] Step 1"
         if (isKubernetes() && config.dockerImage) {
+            echo "[TRACE][${STEP_NAME}] Step 1.1"
             List dockerEnvVars = []
             config.dockerEnvVars?.each { key, value ->
                 dockerEnvVars << "$key=$value"
@@ -220,6 +221,7 @@ void call(Map parameters = [:], body) {
                 }
             }
         } else {
+            echo "[TRACE][${STEP_NAME}] Step 1.2"
             boolean executeInsideDocker = true
             if (!JenkinsUtils.isPluginActive(PLUGIN_ID_DOCKER_WORKFLOW)) {
                 echo "[WARNING][${STEP_NAME}] Docker not supported. Plugin '${PLUGIN_ID_DOCKER_WORKFLOW}' is not installed or not active. Configured docker image '${config.dockerImage}' will not be used."
