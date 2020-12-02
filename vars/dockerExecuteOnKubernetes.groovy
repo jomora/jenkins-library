@@ -268,6 +268,7 @@ def getOptions(config) {
     }
 
     if(config.jenkinsKubernetes.inheritFrom){
+        echo "[TRACE][${STEP_NAME}] inherit from\n${config.jenkinsKubernetes.inheritFrom}\n[TRACE]"
         options.inheritFrom = config.jenkinsKubernetes.inheritFrom
         options.yamlMergeStrategy  = merge()
     }
