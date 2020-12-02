@@ -212,6 +212,8 @@ import hudson.AbortException
  */
 @GenerateDocumentation
 void call(Map parameters = [:], body) {
+    echo "[TRACE][${STEP_NAME}]Step 2\n${parameters}\n[TRACE] ############"
+
     handlePipelineStepErrors(stepName: STEP_NAME, stepParameters: parameters, failOnError: true) {
 
         final script = checkScript(this, parameters) ?: this
@@ -238,6 +240,7 @@ void call(Map parameters = [:], body) {
         ], config)
 
         if (!config.containerMap && config.dockerImage) {
+            echo "[TRACE][${STEP_NAME}] Step 2.1"
             config.containerName = 'container-exec'
             config.containerMap = [(config.get('dockerImage')): config.containerName]
             config.containerCommands = config.containerCommand ? [(config.get('dockerImage')): config.containerCommand] : null
@@ -282,6 +285,7 @@ void executeOnPod(Map config, utils, Closure body, Script script) {
      * In case third case, we need to create the 'container' stash to bring the modified content back to the host.
      */
     try {
+        echo "[TRACE][${STEP_NAME}] Step 2.2"
         SidecarUtils sidecarUtils = new SidecarUtils(script)
         def stashContent = config.stashContent
         if (config.containerName && stashContent.isEmpty()) {
