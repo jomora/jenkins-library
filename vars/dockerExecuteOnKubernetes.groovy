@@ -293,17 +293,22 @@ void executeOnPod(Map config, utils, Closure body, Script script) {
         }
         podTemplate(getOptions(config)) {
             node(config.uniqueId) {
+                echo "[TRACE][${STEP_NAME}] Step 2.2.1"
                 if (config.sidecarReadyCommand) {
+                    echo "[TRACE][${STEP_NAME}] Step 2.2.1.1"
                     sidecarUtils.waitForSidecarReadyOnKubernetes(config.sidecarName, config.sidecarReadyCommand)
                 }
                 if (config.containerName) {
+                    echo "[TRACE][${STEP_NAME}] Step 2.2.1.2"
                     Map containerParams = [name: config.containerName]
                     if (config.containerShell) {
+                        echo "[TRACE][${STEP_NAME}] Step 2.2.1.2.1"
                         containerParams.shell = config.containerShell
                     }
                     echo "ContainerConfig: ${containerParams}"
                     container(containerParams) {
                         try {
+                            echo "[TRACE][${STEP_NAME}] Step 2.2.1.2.2"
                             utils.unstashAll(stashContent)
                             echo "invalidate stash workspace-${config.uniqueId}"
                             stash name: "workspace-${config.uniqueId}", excludes: '**/*', allowEmpty: true
@@ -313,6 +318,7 @@ void executeOnPod(Map config, utils, Closure body, Script script) {
                         }
                     }
                 } else {
+                    echo "[TRACE][${STEP_NAME}] Step 2.2.1.3"
                     body()
                 }
             }
