@@ -206,8 +206,9 @@ void call(Map parameters = [:], body) {
                     stashContent: config.stashContent,
                     stashNoDefaultExcludes: config.stashNoDefaultExcludes,
                 ]
-
+                echo "[TRACE][${STEP_NAME}]\n${dockerExecuteOnKubernetesParams}\n[TRACE] ############"
                 if (config.sidecarImage) {
+                    echo "[TRACE][${STEP_NAME}] Step 1.1.2.1"
                     dockerExecuteOnKubernetesParams += [
                         containerPortMappings: config.containerPortMappings,
                         sidecarName: parameters.sidecarName,
