@@ -172,7 +172,7 @@ void call(Map parameters = [:], body) {
             stepParamKey2: 'kubernetes',
             stepParam2: isKubernetes()
         ], config)
-
+        echo "[TRACE][${STEP_NAME}] Step 1"
         if (isKubernetes() && config.dockerImage) {
             List dockerEnvVars = []
             config.dockerEnvVars?.each { key, value ->
