@@ -250,6 +250,7 @@ void call(Map parameters = [:], body) {
 }
 
 def getOptions(config) {
+    echo "[TRACE][${STEP_NAME}] Step 2.2.0"
     def namespace = config.jenkinsKubernetes.namespace
     def options = [
         name : 'dynamic-agent-' + config.uniqueId,
