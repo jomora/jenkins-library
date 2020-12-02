@@ -180,6 +180,7 @@ void call(Map parameters = [:], body) {
                 dockerEnvVars << "$key=$value"
             }
             if (env.POD_NAME && isContainerDefined(config)) {
+                echo "[TRACE][${STEP_NAME}] Step 1.1.1"
                 container(getContainerDefined(config)) {
                     withEnv(dockerEnvVars) {
                         echo "[INFO][${STEP_NAME}] Executing inside a Kubernetes Container."
@@ -188,6 +189,7 @@ void call(Map parameters = [:], body) {
                     }
                 }
             } else {
+                echo "[TRACE][${STEP_NAME}] Step 1.1.2"
                 if (!config.dockerName) {
                     config.dockerName = UUID.randomUUID().toString()
                 }
