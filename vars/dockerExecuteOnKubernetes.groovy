@@ -273,6 +273,7 @@ def getOptions(config) {
         options.inheritFrom = config.jenkinsKubernetes.inheritFrom
         options.yamlMergeStrategy  = merge()
     }
+    echo "[TRACE][${STEP_NAME}] options\n${options}\n[TRACE]"
     return options
 }
 
