@@ -255,7 +255,8 @@ def getOptions(config) {
     def options = [
         name : 'dynamic-agent-' + config.uniqueId,
         label: config.uniqueId,
-        yaml : generatePodSpec(config)
+        yaml : generatePodSpec(config),
+        imagePullSecrets: ['devRegistryUser']
     ]
     if (namespace) {
         options.namespace = namespace
