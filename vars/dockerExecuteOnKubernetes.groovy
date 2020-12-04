@@ -42,7 +42,7 @@ import hudson.AbortException
     'verbose'
 ]
 @Field Set STEP_CONFIG_KEYS = GENERAL_CONFIG_KEYS.plus([
-
+    'imagePullSecrets',
     /**
      * Additional pod specific configuration. Map with the properties names
      * as key and the corresponding value as value. The value can also be
@@ -255,8 +255,7 @@ def getOptions(config) {
     def options = [
         name : 'dynamic-agent-' + config.uniqueId,
         label: config.uniqueId,
-        yaml : generatePodSpec(config),
-        imagePullSecrets: ['devRegistryUser']
+        yaml : generatePodSpec(config)
     ]
     if (namespace) {
         options.namespace = namespace
