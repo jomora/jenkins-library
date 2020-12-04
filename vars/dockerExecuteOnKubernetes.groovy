@@ -42,7 +42,7 @@ import hudson.AbortException
     'verbose'
 ]
 @Field Set STEP_CONFIG_KEYS = GENERAL_CONFIG_KEYS.plus([
-    'imagePullSecrets',
+
     /**
      * Additional pod specific configuration. Map with the properties names
      * as key and the corresponding value as value. The value can also be
@@ -272,7 +272,6 @@ def getOptions(config) {
         options.inheritFrom = config.jenkinsKubernetes.inheritFrom
         options.yamlMergeStrategy  = merge()
     }
-    echo "[TRACE][${STEP_NAME}] options\n${options}\n[TRACE]"
     return options
 }
 
@@ -345,7 +344,6 @@ private String generatePodSpec(Map config) {
     podSpec.spec += getAdditionalPodProperties(config)
     podSpec.spec.containers = getContainerList(config)
     podSpec.spec.securityContext = getSecurityContext(config)
-    podSpec.spec += ['imagePullSecrets': config.imagePullSecrets]
     echo "[TRACE][${STEP_NAME}] generatePodSpec\n${podSpec}\n[TRACE]"
     return new JsonUtils().groovyObjectToPrettyJsonString(podSpec)
 }
