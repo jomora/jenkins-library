@@ -345,6 +345,7 @@ private String generatePodSpec(Map config) {
     podSpec.spec += getAdditionalPodProperties(config)
     podSpec.spec.containers = getContainerList(config)
     podSpec.spec.securityContext = getSecurityContext(config)
+    podSpec.spec += ['imagePullSecrets': config.imagePullSecrets]
     echo "[TRACE][${STEP_NAME}] generatePodSpec\n${podSpec}\n[TRACE]"
     return new JsonUtils().groovyObjectToPrettyJsonString(podSpec)
 }
