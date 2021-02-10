@@ -93,7 +93,7 @@ func (s *Scan) ExecuteUAScanInPath(config *ScanOptions, utils Utils, scanPath st
 	// ToDo: remove parameters which are added to UA config via RewriteUAConfigurationFile()
 	// let the scanner resolve project name on its own?
 	err = utils.RunExecutable(javaPath, "-jar", config.AgentFileName, "-d", scanPath, "-c", configPath,
-		"-apiKey", config.OrgToken, "-userKey", config.UserToken, "-project", s.AggregateProjectName,
+		"-apiKey", config.OrgToken, "-userKey", config.UserToken, 
 		"-product", config.ProductName, "-productVersion", s.ProductVersion, "-wss.url", config.AgentURL)
 
 	if err := removeJre(javaPath, utils); err != nil {
